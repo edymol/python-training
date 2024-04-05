@@ -116,32 +116,58 @@ class LinkedList:
         self.length -= 1
         return temp
 
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
 
-# TEST REMOVE
+        after = temp.next
+        before = None
+
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+
+
+# TEST REVERSE
 my_linked_list = LinkedList(1)
 my_linked_list.append(2)
 my_linked_list.append(3)
 my_linked_list.append(4)
-my_linked_list.append(5)
 
-print('LL before remove():')
+print('LL before reverse():')
 my_linked_list.print_list()
 
-print('\nRemoved node:')
-print(my_linked_list.remove(2).value)
-print('LL after remove() in middle:')
-my_linked_list.print_list()
+my_linked_list.reverse()
 
-print('\nRemoved node:')
-print(my_linked_list.remove(0).value)
-print('LL after remove() of first node:')
+print('\nLL after reverse():')
 my_linked_list.print_list()
-
-print('\nRemoved node:')
-print(my_linked_list.remove(2).value)
-print('LL after remove() of last node:')
-my_linked_list.print_list()
-
+# TEST REMOVE
+# my_linked_list = LinkedList(1)
+# my_linked_list.append(2)
+# my_linked_list.append(3)
+# my_linked_list.append(4)
+# my_linked_list.append(5)
+#
+# print('LL before remove():')
+# my_linked_list.print_list()
+#
+# print('\nRemoved node:')
+# print(my_linked_list.remove(2).value)
+# print('LL after remove() in middle:')
+# my_linked_list.print_list()
+#
+# print('\nRemoved node:')
+# print(my_linked_list.remove(0).value)
+# print('LL after remove() of first node:')
+# my_linked_list.print_list()
+#
+# print('\nRemoved node:')
+# print(my_linked_list.remove(2).value)
+# print('LL after remove() of last node:')
+# my_linked_list.print_list()
 
 # TEST INSERT
 # my_linked_list = LinkedList(1)
