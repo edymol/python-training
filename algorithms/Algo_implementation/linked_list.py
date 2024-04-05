@@ -102,24 +102,69 @@ class LinkedList:
         self.length += 1
         return True
 
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+        prev = self.get(index - 1)
+        temp = prev.next
+        prev.next = temp.next
+        temp.next = None
+        self.length -= 1
+        return temp
 
 
-
-my_linked_list = LinkedList(0)
+# TEST REMOVE
+my_linked_list = LinkedList(1)
 my_linked_list.append(2)
+my_linked_list.append(3)
+my_linked_list.append(4)
+my_linked_list.append(5)
 
-my_linked_list.insert(1, 1)
-# my_linked_list.set_value(1, 4)
-
-# print(my_linked_list.pop_first())
-# print(my_linked_list.pop_first())
-# print(my_linked_list.pop_first())
-# print(my_linked_list.pop_first())
-
-
-# print(my_linked_list.pop())
-# print(my_linked_list.pop())
-# print(my_linked_list.pop())
-# print(my_linked_list.pop())
-
+print('LL before remove():')
 my_linked_list.print_list()
+
+print('\nRemoved node:')
+print(my_linked_list.remove(2).value)
+print('LL after remove() in middle:')
+my_linked_list.print_list()
+
+print('\nRemoved node:')
+print(my_linked_list.remove(0).value)
+print('LL after remove() of first node:')
+my_linked_list.print_list()
+
+print('\nRemoved node:')
+print(my_linked_list.remove(2).value)
+print('LL after remove() of last node:')
+my_linked_list.print_list()
+
+
+# TEST INSERT
+# my_linked_list = LinkedList(1)
+# my_linked_list.append(3)
+#
+#
+# print('LL before insert():')
+# my_linked_list.print_list()
+#
+#
+# my_linked_list.insert(1,2)
+#
+# print('\nLL after insert(2) in middle:')
+# my_linked_list.print_list()
+#
+#
+# my_linked_list.insert(0,0)
+#
+# print('\nLL after insert(0) at beginning:')
+# my_linked_list.print_list()
+#
+#
+# my_linked_list.insert(4,4)
+#
+# print('\nLL after insert(4) at end:')
+# my_linked_list.print_list()
