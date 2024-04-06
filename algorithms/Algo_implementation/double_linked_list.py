@@ -1,3 +1,6 @@
+from operator import index
+
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -113,28 +116,113 @@ class DoublyLinkedList:
         self.length += 1
         return True
 
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+        temp = self.get(index)
+        temp.next.prev = temp.prev
+        temp.prev.next = temp.next
+        temp.next = None
+        temp.prev = None
+        self.length -= 1
+        return temp
 
-    # TEST INSERT
+    def swap_first_last(self):
+        if self.head is None or self.head == self.tail:
+            return
+        self.head.value, self.tail.value = self.tail.value, self.head.value
+
+    def reverse(self):
+        if self.length == 0:
+            return None
+        current = self.head
+        while current:
+            current.next, current.prev = current.prev, current.next
+            current = current.prev
+        self.head, self.tail = self.tail, self.head
+
+# TEST REVERSE
 my_doubly_linked_list = DoublyLinkedList(1)
+my_doubly_linked_list.append(2)
 my_doubly_linked_list.append(3)
+my_doubly_linked_list.append(4)
+my_doubly_linked_list.append(5)
 
-print('DLL before insert():')
+
+print('DLL before reverse():')
 my_doubly_linked_list.print_list()
 
-my_doubly_linked_list.insert(1, 2)
 
-print('\nDLL after insert(2) in middle:')
+my_doubly_linked_list.reverse()
+
+
+print('\nDLL after reverse():')
 my_doubly_linked_list.print_list()
 
-my_doubly_linked_list.insert(0, 0)
+# TEST SWAPPING
+# my_doubly_linked_list = DoublyLinkedList(1)
+# my_doubly_linked_list.append(2)
+# my_doubly_linked_list.append(3)
+# my_doubly_linked_list.append(4)
+#
+# print('DLL before swap_first_last():')
+# my_doubly_linked_list.print_list()
+#
+# my_doubly_linked_list.swap_first_last()
+#
+# print('\nDLL after swap_first_last():')
+# my_doubly_linked_list.print_list()
 
-print('\nDLL after insert(0) at beginning:')
-my_doubly_linked_list.print_list()
+# # TEST REMOVE
+# my_doubly_linked_list = DoublyLinkedList(1)
+# my_doubly_linked_list.append(2)
+# my_doubly_linked_list.append(3)
+# my_doubly_linked_list.append(4)
+# my_doubly_linked_list.append(5)
+#
+# print('DLL before remove():')
+# my_doubly_linked_list.print_list()
+#
+# print('\nRemoved node:')
+# print(my_doubly_linked_list.remove(2).value)
+# print('DLL after remove() in middle:')
+# my_doubly_linked_list.print_list()
+#
+# print('\nRemoved node:')
+# print(my_doubly_linked_list.remove(0).value)
+# print('DLL after remove() of first node:')
+# my_doubly_linked_list.print_list()
+#
+# print('\nRemoved node:')
+# print(my_doubly_linked_list.remove(2).value)
+# print('DLL after remove() of last node:')
+# my_doubly_linked_list.print_list()
 
-my_doubly_linked_list.insert(4, 4)
-
-print('\nDLL after insert(4) at end:')
-my_doubly_linked_list.print_list()
+# TEST INSERT
+# my_doubly_linked_list = DoublyLinkedList(1)
+# my_doubly_linked_list.append(3)
+#
+# print('DLL before insert():')
+# my_doubly_linked_list.print_list()
+#
+# my_doubly_linked_list.insert(1, 2)
+#
+# print('\nDLL after insert(2) in middle:')
+# my_doubly_linked_list.print_list()
+#
+# my_doubly_linked_list.insert(0, 0)
+#
+# print('\nDLL after insert(0) at beginning:')
+# my_doubly_linked_list.print_list()
+#
+# my_doubly_linked_list.insert(4, 4)
+#
+# print('\nDLL after insert(4) at end:')
+# my_doubly_linked_list.print_list()
 
 # TEST SET VALUE
 # my_doubly_linked_list = DoublyLinkedList(11)
