@@ -18,6 +18,14 @@ class LinkedList:
         self.tail = new_node
         self.length = 1
 
+    def length(self):
+        count = 0
+        current = self.head
+        while current:
+            count += 1
+            current = current.next
+        return count
+
     def print_list(self):
         temp = self.head
         while temp is not None:
@@ -130,20 +138,245 @@ class LinkedList:
             before = temp
             temp = after
 
+    def find_middle_node(self):
+        if not self.head:
+            return None
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while fast_ptr and fast_ptr.next:
+            slow_ptr = slow_ptr.next
+            fast_ptr = fast_ptr.next.next
+        return slow_ptr
+
+    def has_loop(self):
+        if not self.head:
+            return False
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while fast_ptr and fast_ptr.next:
+            slow_ptr = slow_ptr.next
+            fast_ptr = fast_ptr.next.next
+            if slow_ptr == fast_ptr:
+                return True
+        return False
+
+    def find_kth_from_end(ll, k):
+        slow = fast = ll.head
+        for _ in range(k):
+            if fast is None:
+                return None
+            fast = fast.next
+
+        while fast:
+            slow = slow.next
+            fast = fast.next
+        return slow
+
+    def partition_list(self, value):
+        if not self.head:
+            return None
+
+        current = self.head
+        lesser_head = lesser_tail = Node(None)  # Dummy nodes for lesser list
+        greater_head = greater_tail = Node(None)  # Dummy nodes for greater list
+
+        while current:
+            if current.value < value:
+                lesser_tail.next = current
+                lesser_tail = current
+            else:
+                greater_tail.next = current
+                greater_tail = current
+            current = current.next
+
+        lesser_tail.next = greater_head.next  # Combine lesser and greater lists
+        greater_tail.next = None  # End the greater list
+
+        self.head = lesser_head.next  # Update the head of the linked list
+
+        return self.head
+
+
+# TEST PARTITION_LIST
+
+# Function to convert linked list to Python list
+def linkedlist_to_list(head):
+    result = []
+    current = head
+    while current:
+        result.append(current.value)
+        current = current.next
+    return result
+
+
+# Function to test partition_list
+def test_partition_list():
+    test_cases_passed = 0
+
+    print("-----------------------")
+
+    # Test 1: Normal Case
+    print("Test 1: Normal Case")
+    x = 3
+    print(f"x = {x}")
+    ll = LinkedList(3)
+    ll.append(1)
+    ll.append(4)
+    ll.append(2)
+    ll.append(5)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [1, 2, 3, 4, 5]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+
+    print("-----------------------")
+
+    # Test 2: All Equal Values
+    print("Test 2: All Equal Values")
+    x = 3
+    print(f"x = {x}")
+    ll = LinkedList(3)
+    ll.append(3)
+    ll.append(3)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [3, 3, 3]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+
+    print("-----------------------")
+
+    # Test 3: Single Element
+    print("Test 3: Single Element")
+    x = 3
+    print(f"x = {x}")
+    ll = LinkedList(1)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [1]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+
+    print("-----------------------")
+
+    # Test 4: Already Sorted
+    print("Test 4: Already Sorted")
+    x = 2
+    print(f"x = {x}")
+    ll = LinkedList(1)
+    ll.append(2)
+    ll.append(3)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [1, 2, 3]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+
+    print("-----------------------")
+
+    # Test 5: Reverse Sorted
+    print("Test 5: Reverse Sorted")
+    x = 2
+    print(f"x = {x}")
+    ll = LinkedList(3)
+    ll.append(2)
+    ll.append(1)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [1, 3, 2]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+
+    print("-----------------------")
+
+    # Test 6: All Smaller Values
+    print("Test 6: All Smaller Values")
+    x = 2
+    print(f"x = {x}")
+    ll = LinkedList(1)
+    ll.append(1)
+    ll.append(1)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [1, 1, 1]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+
+    print("-----------------------")
+
+    # Test 7: Single Element, Equal to Partition
+    print("Test 7: Single Element, Equal to Partition")
+    x = 3
+    print(f"x = {x}")
+    ll = LinkedList(3)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [3]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+
+    print("-----------------------")
+
+    # Summary
+    print(f"{test_cases_passed} out of 7 tests passed.")
+
+
+# Run the test function
+test_partition_list()
+
+# TEST HAS_LOOP
+# my_linked_list_1 = LinkedList(1)
+# my_linked_list_1.append(2)
+# my_linked_list_1.append(3)
+# my_linked_list_1.append(4)
+# my_linked_list_1.tail.next = my_linked_list_1.head
+# print(my_linked_list_1.has_loop())  # Returns True
+#
+# my_linked_list_2 = LinkedList(1)
+# my_linked_list_2.append(2)
+# my_linked_list_2.append(3)
+# my_linked_list_2.append(4)
+# print(my_linked_list_2.has_loop())  # Returns False
 
 # TEST REVERSE
-my_linked_list = LinkedList(1)
-my_linked_list.append(2)
-my_linked_list.append(3)
-my_linked_list.append(4)
+# my_linked_list = LinkedList(1)
+# my_linked_list.append(2)
+# my_linked_list.append(3)
+# my_linked_list.append(4)
+#
+# print('LL before reverse():')
+# my_linked_list.print_list()
+#
+# my_linked_list.reverse()
+#
+# print('\nLL after reverse():')
+# my_linked_list.print_list()
+#
+# print('\nmiddle value')
+# print(my_linked_list.find_middle_node().value)
 
-print('LL before reverse():')
-my_linked_list.print_list()
-
-my_linked_list.reverse()
-
-print('\nLL after reverse():')
-my_linked_list.print_list()
 # TEST REMOVE
 # my_linked_list = LinkedList(1)
 # my_linked_list.append(2)
