@@ -14,7 +14,7 @@ class DoublyLinkedList:
 
     def print_list(self):
         temp = self.head
-        while temp.next is not None:
+        while temp is not None:
             print(temp.value)
             temp = temp.next
 
@@ -30,14 +30,147 @@ class DoublyLinkedList:
         self.length += 1
         return True
 
+    def pop(self):
+        # if there are 0 items
+        if self.length == 0:
+            return None
+        temp = self.tail
+        # if there is one item
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+        # if there are more than 2 items
+        else:
+            self.tail = self.tail.prev
+            self.tail.next = None
+            temp.prev = None
+        self.length -= 1
+        return temp
+
+    def prepend(self, value):
+        new_node = Node(value)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        self.length += 1
+        return True
+
+    def pop_first(self):
+        if self.length == 0:
+            return None
+        temp = self.head
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+        else:
+            self.head = self.head.next
+            self.head.prev = None
+            temp.next = None
+        self.length -= 1
+        return temp
+
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        temp = self.head
+        if index < self.length / 2:
+            for _ in range(index):
+                temp = temp.next
+        else:
+            temp = self.tail
+            for _ in range(self.length - 1, index, -1):
+                temp = temp.prev
+        return temp
+
+    def set_value(self, index, value):
+        temp = self.get(index)
+        if temp:
+            temp.value = value
+            return True
+        return False
+
+
+# TEST SET VALUE
+my_doubly_linked_list = DoublyLinkedList(11)
+my_doubly_linked_list.append(3)
+my_doubly_linked_list.append(23)
+my_doubly_linked_list.append(7)
+
+print('DLL before set_value():')
+my_doubly_linked_list.print_list()
+
+my_doubly_linked_list.set_value(1, 4)
+
+print('\nDLL after set_value():')
+my_doubly_linked_list.print_list()
+
+# TEST GET
+# my_doubly_linked_list = DoublyLinkedList(0)
+# my_doubly_linked_list.append(1)
+# my_doubly_linked_list.append(2)
+# my_doubly_linked_list.append(3)
+#
+# print('Get node from first half of DLL:')
+# print(my_doubly_linked_list.get(1).value)
+#
+# print('\nGet node from second half of DLL:')
+# print(my_doubly_linked_list.get(2).value)
+
+# TEST POP FIRST
+# my_doubly_linked_list = DoublyLinkedList(2)
+# my_doubly_linked_list.append(1)
+#
+# # (2) Items - Returns 2 Node
+# print(my_doubly_linked_list.pop_first().value)
+# # (1) Item -  Returns 1 Node
+# print(my_doubly_linked_list.pop_first().value)
+# # (0) Items - Returns None
+# print(my_doubly_linked_list.pop_first())
+#
+# # TEST PREPEND
+# my_doubly_linked_list = DoublyLinkedList(2)
+# my_doubly_linked_list.append(3)
+#
+# print('Before prepend():')
+# print('----------------')
+# print('Head:', my_doubly_linked_list.head.value)
+# print('Tail:', my_doubly_linked_list.tail.value)
+# print('Length:', my_doubly_linked_list.length, '\n')
+# print('Doubly Linked List:')
+# my_doubly_linked_list.print_list()
+#
+# my_doubly_linked_list.prepend(1)
+#
+# print('\n\nAfter prepend():')
+# print('---------------')
+# print('Head:', my_doubly_linked_list.head.value)
+# print('Tail:', my_doubly_linked_list.tail.value)
+# print('Length:', my_doubly_linked_list.length, '\n')
+# print('Doubly Linked List:')
+# my_doubly_linked_list.print_list()
+
+# TEST POP
+# my_doubly_linked_list = DoublyLinkedList(1)
+# my_doubly_linked_list.append(2)
+#
+# # (2) Items - Returns 2 Node
+# print(my_doubly_linked_list.pop().value)
+# # (1) Item -  Returns 1 Node
+# print(my_doubly_linked_list.pop().value)
+# # (0) Items - Returns None
+# print(my_doubly_linked_list.pop())
 
 # TEST APPEND
-my_doubly_linked_list = DoublyLinkedList(1)
-my_doubly_linked_list.append(2)
-
-print('Head:', my_doubly_linked_list.head.value)
-print('Tail:', my_doubly_linked_list.tail.value)
-print('Length:', my_doubly_linked_list.length, '\n')
-
-print('Doubly Linked List:')
-my_doubly_linked_list.print_list()
+# my_doubly_linked_list = DoublyLinkedList(1)
+# my_doubly_linked_list.append(2)
+#
+# print('Head:', my_doubly_linked_list.head.value)
+# print('Tail:', my_doubly_linked_list.tail.value)
+# print('Length:', my_doubly_linked_list.length, '\n')
+#
+# print('Doubly Linked List:')
+# my_doubly_linked_list.print_list()
