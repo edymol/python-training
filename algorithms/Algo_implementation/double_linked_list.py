@@ -145,23 +145,59 @@ class DoublyLinkedList:
             current = current.prev
         self.head, self.tail = self.tail, self.head
 
+    def is_palindrome(self):
+        if self.length <= 1:
+            return True
+
+        # Define two pointers: one starting from the head and one starting from the tail
+        front = self.head
+        back = self.tail
+
+        while front != back and front.prev != back:
+            # If the values at the front and back pointers don't match, it's not a palindrome
+            if front.value != back.value:
+                return False
+
+            # Move the pointers towards each other
+            front = front.next
+            back = back.prev
+
+        # If the loop completes without finding any mismatches, it's a palindrome
+        return True
+# TEST PALINDROME
+my_dll_1 = DoublyLinkedList(1)
+my_dll_1.append(2)
+my_dll_1.append(3)
+my_dll_1.append(2)
+my_dll_1.append(1)
+
+print('my_dll_1 is_palindrome:')
+print( my_dll_1.is_palindrome() )
+
+
+my_dll_2 = DoublyLinkedList(1)
+my_dll_2.append(2)
+my_dll_2.append(3)
+
+print('\nmy_dll_2 is_palindrome:')
+print( my_dll_2.is_palindrome() )
 # TEST REVERSE
-my_doubly_linked_list = DoublyLinkedList(1)
-my_doubly_linked_list.append(2)
-my_doubly_linked_list.append(3)
-my_doubly_linked_list.append(4)
-my_doubly_linked_list.append(5)
-
-
-print('DLL before reverse():')
-my_doubly_linked_list.print_list()
-
-
-my_doubly_linked_list.reverse()
-
-
-print('\nDLL after reverse():')
-my_doubly_linked_list.print_list()
+# my_doubly_linked_list = DoublyLinkedList(1)
+# my_doubly_linked_list.append(2)
+# my_doubly_linked_list.append(3)
+# my_doubly_linked_list.append(4)
+# my_doubly_linked_list.append(5)
+#
+#
+# print('DLL before reverse():')
+# my_doubly_linked_list.print_list()
+#
+#
+# my_doubly_linked_list.reverse()
+#
+#
+# print('\nDLL after reverse():')
+# my_doubly_linked_list.print_list()
 
 # TEST SWAPPING
 # my_doubly_linked_list = DoublyLinkedList(1)
