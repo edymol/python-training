@@ -27,12 +27,17 @@ class MaxHeap:
         while True:
             left_index = self._left_child(index)
             right_index = self._right_child(index)
+            # This if statement compares if the left is valid and is greater than the root
+            # if it is then sets the max to its index
             if left_index < len(self.heap) and self.heap[left_index] > self.heap[max_index]:
                 max_index = left_index
-
+            # This if statement compares if the right is valid and is greater than the max index
+            # which was set to be the left index. In short this compares the sibling
+            # indexes. If greater then sets the right index to be the max to its index
             if right_index < len(self.heap) and self.heap[right_index] > self.heap[max_index]:
                 max_index = right_index
-
+            # This check if the max index and the index are pointing to the same index, if they are
+            # then it swaps the index to the max, effectively changing the root to be the highest number
             if max_index != index:
                 self._swap(index, max_index)
                 index = max_index
