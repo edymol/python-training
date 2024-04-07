@@ -30,16 +30,61 @@ class HashTable:
                     return self.data_map[index][i][1]
         return None
 
+    def keys(self):
+        all_keys = []
+        for i in range(len(self.data_map)):
+            if self.data_map[i] is not None:  # this will ensure the loop only runs if index is not empty
+                for j in range(len(self.data_map[i])):
+                    all_keys.append(self.data_map[i][j][0])
+        return all_keys
+
+
+# Naive approach to find the common item in two lists O(nˆ2)
+def item_in_common(list1, list2):
+    for i in list1:
+        for j in list2:
+            if i == j:
+                return True
+    return False
+
+
+# Recommend approach with a O(n) time complexity
+def item_in_common2(list3, list4):
+    my_dict = {}
+    for i in list3:
+        my_dict[i] = True
+    for j in list4:
+        if j in my_dict:
+            return True
+    return False
+
+
+list3 = ['1', '2', '3', '4', 'e', 'f', 'g', 'h']
+list4 = ['6', '7', '8', '9', 'a', 'b', 'c', 'd']
+print(item_in_common2(list3, list4))
+
+list1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+list2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+print(item_in_common(list1, list2))
+
+# TEST KEYS METHOD
+# my_hash_table = HashTable()
+#
+# my_hash_table.set_item('bolts', 1400)
+# my_hash_table.set_item('washers', 50)
+# my_hash_table.set_item('lumber', 70)
+#
+# print(my_hash_table.keys())
 
 # TEST GET ITEM
-my_hash_table = HashTable()
-
-my_hash_table.set_item('bolts', 1400)
-my_hash_table.set_item('washers', 50)
-
-print('Bolts:', my_hash_table.get_item('bolts'))
-print('Washers:', my_hash_table.get_item('washers'))
-print('Lumber:', my_hash_table.get_item('lumber'))
+# my_hash_table = HashTable()
+#
+# my_hash_table.set_item('bolts', 1400)
+# my_hash_table.set_item('washers', 50)
+#
+# print('Bolts:', my_hash_table.get_item('bolts'))
+# print('Washers:', my_hash_table.get_item('washers'))
+# print('Lumber:', my_hash_table.get_item('lumber'))
 
 # TEST SET ITEM
 # my_hash_table = HashTable()
