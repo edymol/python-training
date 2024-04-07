@@ -59,6 +59,14 @@ def item_in_common2(list3, list4):
     return False
 
 
+# Convert a list to a dictionary with key as the item and value as the count of the item
+my_list = ['apple', 'banana', 'apple', 'orange', 'banana', 'apple']
+
+# Convert list to dictionary with counts
+my_dict = {item: my_list.count(item) for item in my_list}
+
+print(my_dict)
+
 list3 = ['1', '2', '3', '4', 'e', 'f', 'g', 'h']
 list4 = ['6', '7', '8', '9', 'a', 'b', 'c', 'd']
 print(item_in_common2(list3, list4))
