@@ -21,6 +21,7 @@ def selection_sort(my_list):
 
     return my_list
 
+
 def insertion_sort(my_list):
     for i in range(1, len(my_list)):
         temp = my_list[i]
@@ -30,6 +31,27 @@ def insertion_sort(my_list):
             my_list[j] = temp
             j -= 1
     return my_list
+
+def merge(list1, list2):
+    combined = []
+    i = 0
+    j = 0
+    while i < len(list1) and j < len(list2):
+        if list1[i] < list2[j]:
+            combined.append(list1[i])
+            i += 1
+        else:
+            combined.append(list2[j])
+            j += 1
+    while i < len(list1):
+        combined.append(list1[i])
+        i += 1
+
+    while j < len(list):
+        combined.append(list2[j])
+        j += 1
+
+    return combined
 
 # TEST INSERTION SORT
 print(insertion_sort([4, 2, 6, 5, 1, 3]))
