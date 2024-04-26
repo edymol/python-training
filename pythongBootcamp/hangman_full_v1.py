@@ -1,64 +1,9 @@
 import random
+import hangman_art
+import hangman_words
 
-stages = [r'''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', r'''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
-
-word_list = ["aardvark", "baboon", "camel"]
-chosen_word = random.choice(word_list)
+# word_list = ["aardvark", "baboon", "camel"]
+chosen_word = random.choice(hangman_words)
 word_length = len(chosen_word)
 lives = 6
 letters_picked = []
@@ -83,7 +28,7 @@ while "_" in display and lives > 0:
         # If the guessed letter is not in the chosen word, decrease the lives count
         lives -= 1
         # Print the corresponding hangman stage
-        print(stages[lives])
+        print(hangman_art[lives])
 
     letters_picked.append(guess)
 
